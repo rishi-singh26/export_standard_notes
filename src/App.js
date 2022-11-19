@@ -1,10 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from "react";
 
 function App() {
-
-	const [data, setData] = useState({ items: [] });
+	const defaultStateData = { items: [] };
+	const [data, setData] = useState(defaultStateData);
 
 	const handleFileChange = (e) => {
 		const file = e.target.files[0];
@@ -21,15 +20,19 @@ function App() {
 	return (
 		<div className="App">
 			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
+				<h3>Export Standard Notes</h3>
 			</header>
+			<h4>Select the Standard Notes export .txt file</h4>
 			<input type={'file'} onChange={handleFileChange}></input>
-			{data.items.length === 0 ? <h1>Select a file</h1> : data.items.map((item, index) => {
+			<p></p>
+			{/* {data.items.length === 0 ? null : <button onClick={() => setData(defaultStateData)}>Clear</button>} */}
+			<a href='https://github.com/rishi-singh26/export_standard_notes'><h5>Github</h5></a>
+			{data.items.length === 0 ? <h5>No file selected</h5> : data.items.map((item, index) => {
 				return item.content_type === "Note" ? <div className='Note' key={index.toString()}>
 					<h3>{item?.content?.title}</h3>
 					<h4>{item?.content?.text}</h4>
 					<button onClick={() => onShare(item?.content?.title, item?.content?.text)}>Share</button>
-				</div> : <div key={index.toString()}><h2>Not a note</h2></div>
+				</div> : <div key={index.toString()}></div>
 			})}
 		</div>
 	);
